@@ -17,7 +17,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  project: 'FairFit DialogFlow Fullfilmment.csproj'
+  project: 'FairFit_DialogFlow_Fullfilmment.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 

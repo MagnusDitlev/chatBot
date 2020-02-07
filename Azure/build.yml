@@ -46,12 +46,9 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'pack'
-    packagesToPack: '$(project)'
-    nobuild: true
-    includesymbols: true
-    includesource: true
-    versioningScheme: 'byBuildNumber'
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
 
 - task: PublishBuildArtifacts@1
   inputs:

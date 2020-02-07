@@ -1,0 +1,58 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+name: $(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  project: 'FairFit DialogFlow Fullfilmment.csproj'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+# A new version of NuGet is required for successful restore
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: 4.9.3
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(project)'
+    feedsToUse: 'select'
+    vstsFeed: '5288ee12-e576-4453-82d4-81f93e78ebe3'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    projects: '$(project)'
+    arguments: '--configuration $(buildConfiguration)'
+
+# - task: VSTest@2
+#  inputs:
+#    platform: '$(buildPlatform)'
+#    configuration: '$(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '$(project)'
+    nobuild: true
+    includesymbols: true
+    includesource: true
+    versioningScheme: 'byBuildNumber'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: FairFitDialogFlow

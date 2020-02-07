@@ -4,14 +4,9 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>FairFit_DialogFlow_Fullfilmment</RootNamespace>
   </PropertyGroup>
-
-
+  
   <ItemGroup>
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <PackageReference Include="FairControlApi" Version="1.1.34" />
+    <PackageReference Include="FairControlApi" Version="2020.2.6.1" />
     <PackageReference Include="Google.Cloud.Dialogflow.V2" Version="1.2.0" />
   </ItemGroup>
 
